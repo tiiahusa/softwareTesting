@@ -4,7 +4,7 @@
   "description": "softwareTesting",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text mocha",
+    "test": "nyc mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
