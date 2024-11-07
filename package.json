@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "test-cov": "nyc npm run mocha",
-    "test-coveralls": "nyc npm run mocha && shx cat ./coverage/lcov.info | node ./bin/coveralls.js --verbose"
+    "test-coverage": "nyc --reporter=lcov --reporter=text mocha", 
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^5.1.2",
+    "coveralls": "^3.1.1",
     "mocha": "^10.8.2",
-    "nyc": "^15.1.0", 
-    "coveralls": "^3.1.1" 
+    "nyc": "^15.1.0"
   },
   "nyc": {
     "reporter": [
