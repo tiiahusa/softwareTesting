@@ -4,7 +4,7 @@
   "description": "softwareTesting",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --require @babel/register",
+    "test": "mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
