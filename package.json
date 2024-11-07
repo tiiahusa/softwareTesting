@@ -4,7 +4,7 @@
   "description": "softwareTesting",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
@@ -20,5 +20,8 @@
       "lcov",
       "text-summary"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
