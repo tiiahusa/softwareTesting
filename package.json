@@ -1,10 +1,10 @@
 {
-  "name": "softwaretesting",
+  "name": "software-testing-assignment",
   "version": "1.0.0",
-  "description": "softwareTesting",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha",
+    "test": "nyc mocha 'src/**/*.js'",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
@@ -19,9 +19,13 @@
     "reporter": [
       "lcov",
       "text-summary"
+    ],
+    "exclude": [
+      "**/.internal/**"
     ]
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "software-testing-assignment": "file:"
   }
 }
