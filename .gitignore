@@ -1,0 +1,27 @@
+# Node.js
+node_modules/
+coverage/
+.env
+.env.local
+.env.*.local
+
+# Lokitiedostot
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editorikohtaiset
+.vscode/
+.idea/
+
+# Järjestelmätiedostot
+.DS_Store
+Thumbs.db
+
+# CI-välimuisti
+.github/workflows/*.cache
+
+# ESLint ja Babel
+.eslintcache
+dist/
