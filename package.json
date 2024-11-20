@@ -8,15 +8,30 @@
   "devDependencies": {
     "chai": "^5.1.2",
     "coveralls": "^3.1.1",
+    "esm": "^3.2.25",
     "glob": "^11.0.0",
     "mocha": "^10.8.2",
     "nyc": "^15.1.0"
   },
   "nyc": {
+    "all": true,
     "reporter": [
-      "lcov",
-      "text-summary"
-    ]
+      "text",
+      "lcov"
+    ],
+    "include": [
+      "src/*.js"
+    ],
+    "exclude": [
+      "test/*.js"
+    ],
+    "cache": false,
+    "check-coverage": true,
+    "extension": [
+      ".js"
+    ],
+    "instrument": true,
+    "sourceMap": false
   },
   "dependencies": {
     "software-testing": "file:"
