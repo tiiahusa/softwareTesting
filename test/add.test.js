@@ -1,39 +1,38 @@
-import { expect } from 'chai';
 import add from '../src/add.js';  // Polku 'add' tiedostoon
 
 describe('add function', () => {
-  it('should return the correct sum of two positive numbers', () => {
+  test('should return the correct sum of two positive numbers', () => {
     const result = add(6, 4);
-    expect(result).to.equal(10);  
+    expect(result).toBe(10);  // Mocha's .to.equal -> Jest's .toBe
   });
 
-  it('should return the correct sum when one number is negative', () => {
+  test('should return the correct sum when one number is negative', () => {
     const result = add(6, -4);
-    expect(result).to.equal(2); 
+    expect(result).toBe(2); 
   });
 
-  it('should return the correct sum when both numbers are negative', () => {
+  test('should return the correct sum when both numbers are negative', () => {
     const result = add(-6, -4);
-    expect(result).to.equal(-10);  
+    expect(result).toBe(-10);  
   });
 
-  it('should return the correct sum when one number is zero', () => {
+  test('should return the correct sum when one number is zero', () => {
     const result = add(6, 0);
-    expect(result).to.equal(6);  
+    expect(result).toBe(6);  
   });
 
-  it('should return zero when both numbers are zero', () => {
+  test('should return zero when both numbers are zero', () => {
     const result = add(0, 0);
-    expect(result).to.equal(0);  
+    expect(result).toBe(0);  
   });
 
-  it('should return the correct sum for floating point numbers', () => {
+  test('should return the correct sum for floating point numbers', () => {
     const result = add(1.5, 2.3);
-    expect(result).to.be.closeTo(3.8, 0.0001);  
+    expect(result).toBeCloseTo(3.8, 4);  // Mocha's .to.be.closeTo -> Jest's .toBeCloseTo
   });
 
-  it('should return the correct sum when both numbers are large', () => {
+  test('should return the correct sum when both numbers are large', () => {
     const result = add(1e6, 2e6);
-    expect(result).to.equal(3e6);  
+    expect(result).toBe(3e6);  
   });
 });

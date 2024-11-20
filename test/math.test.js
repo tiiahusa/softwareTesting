@@ -1,57 +1,55 @@
-// mathOperations.test.js
-import { expect } from 'chai';
 import { add, subtract, multiply, divide } from '../math.js';
 
-describe('mathOperations', function () {
+describe('mathOperations', () => {
 
   // Yhteenlasku
-  describe('add()', function () {
-    it('should return the correct sum of two numbers', function () {
+  describe('add()', () => {
+    test('should return the correct sum of two numbers', () => {
       const result = add(2, 3);
-      expect(result).to.equal(5);
+      expect(result).toBe(5);
     });
-    
-    it('should return a negative sum when both numbers are negative', function () {
+
+    test('should return a negative sum when both numbers are negative', () => {
       const result = add(-2, -3);
-      expect(result).to.equal(-5);
+      expect(result).toBe(-5);
     });
   });
 
   // Vähennyslasku
-  describe('subtract()', function () {
-    it('should return the correct difference between two numbers', function () {
+  describe('subtract()', () => {
+    test('should return the correct difference between two numbers', () => {
       const result = subtract(5, 3);
-      expect(result).to.equal(2);
+      expect(result).toBe(2);
     });
 
-    it('should return a negative result when subtracting a larger number from a smaller one', function () {
+    test('should return a negative result when subtracting a larger number from a smaller one', () => {
       const result = subtract(3, 5);
-      expect(result).to.equal(-2);
+      expect(result).toBe(-2);
     });
   });
 
   // Kertolasku
-  describe('multiply()', function () {
-    it('should return the correct product of two numbers', function () {
+  describe('multiply()', () => {
+    test('should return the correct product of two numbers', () => {
       const result = multiply(2, 3);
-      expect(result).to.equal(6);
+      expect(result).toBe(6);
     });
 
-    it('should return zero when multiplying by zero', function () {
+    test('should return zero when multiplying by zero', () => {
       const result = multiply(5, 0);
-      expect(result).to.equal(0);
+      expect(result).toBe(0);
     });
   });
 
   // Jakolasku
-  describe('divide()', function () {
-    it('should return the correct quotient when dividing two numbers', function () {
+  describe('divide()', () => {
+    test('should return the correct quotient when dividing two numbers', () => {
       const result = divide(6, 3);
-      expect(result).to.equal(2);
+      expect(result).toBe(2);
     });
 
-    it('should throw an error when dividing by zero', function () {
-      expect(() => divide(6, 0)).to.throw('Cannot divide by zero');
+    test('should throw an error when dividing by zero', () => {
+      expect(() => divide(6, 0)).toThrow('Cannot divide by zero');
     });
   });
 
