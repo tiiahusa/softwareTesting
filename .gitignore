@@ -25,3 +25,8 @@ Thumbs.db
 # ESLint ja Babel
 .eslintcache
 dist/
+
+
+#NYC & coverage
+.nyc_output
+coverage
