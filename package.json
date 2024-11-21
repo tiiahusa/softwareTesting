@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "devDependencies": {
