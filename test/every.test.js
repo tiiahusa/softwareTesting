@@ -19,6 +19,12 @@ describe('every function', () => {
     const result = every([], n => n > 0);
     expect(result).toBe(true);  // Tyhjä taulukko, joten tulos on true (vakuuminen totuus)
   });
+  
+  // Testi null arvolla
+  it('should return true for null', () => {
+    const result = every(null, n => n > 0);
+    expect(result).toBe(true);  // Null arvo, joten tulos on true (vakuuminen totuus)
+  });
 
   // Testi, jossa predikaatti tarkistaa totuusarvot
   it('should return true when all elements are truthy', () => {

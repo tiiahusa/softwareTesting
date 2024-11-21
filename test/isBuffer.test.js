@@ -52,4 +52,33 @@ describe('isBuffer function', () => {
 
     global.Buffer = originalBuffer;  // Palautetaan alkuperäinen Buffer takaisin
   });
+
+  it('should return false if moduleExports is false', () => {
+    jest.mock('./.internal/root.js', () => ({
+      Buffer: undefined, // Simuloidaan ympäristö ilman Bufferia
+    }), { virtual: true });
+  
+    const isBuffer = require('../src/isBuffer').default; // Ladataan uudelleen
+    expect(isBuffer(new Uint8Array(2))).toBe(false); // Uint8Array ei ole Buffer, joten tulos on false
+  });
+
+  it('should handle case where Buffer is undefined', () => {
+    const originalBuffer = global.Buffer;
+    global.Buffer = undefined;
+  
+    const isBuffer = require('../src/isBuffer').default; // Lataa funktio uudelleen
+    expect(isBuffer(new Uint8Array(2))).toBe(false); // Uint8Array ei ole Buffer
+  
+    global.Buffer = originalBuffer; // Palauta alkuperäinen Buffer
+  });
+
+  it('should handle case where nativeIsBuffer is undefined', () => {
+    const originalBuffer = global.Buffer;
+    global.Buffer = { isBuffer: undefined }; // Poistetaan isBuffer-tuki
+  
+    const isBuffer = require('../src/isBuffer').default; // Lataa funktio uudelleen
+    expect(isBuffer(new Uint8Array(2))).toBe(false); // Uint8Array ei ole Buffer
+  
+    global.Buffer = originalBuffer; // Palauta alkuperäinen Buffer
+  });
 });
