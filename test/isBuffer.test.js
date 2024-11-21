@@ -1,4 +1,5 @@
 import isBuffer from '../src/isBuffer';  
+import root from '../src/.internal/root';
 
 describe('isBuffer function', () => {
 
@@ -53,6 +54,18 @@ describe('isBuffer function', () => {
     global.Buffer = originalBuffer;  // Palautetaan alkuperäinen Buffer takaisin
   });
 
+  // Testi: Buffer-globaali ei käytössä 2
+  it('should return false when Buffer is not available 2', () => {
+    const originalBuffer = global.Buffer; // Tallenna alkuperäinen Buffer
+    global.Buffer = undefined; // Poista Buffer käytöstä
+
+    const uint8Array = new Uint8Array([1, 2, 3, 4]);
+    expect(isBuffer(uint8Array)).toBe(false);
+
+    global.Buffer = originalBuffer; // Palauta alkuperäinen Buffer
+  });
+
+
   it('should return false if moduleExports is false', () => {
     jest.mock('./.internal/root.js', () => ({
       Buffer: undefined, // Simuloidaan ympäristö ilman Bufferia
@@ -60,6 +73,28 @@ describe('isBuffer function', () => {
   
     const isBuffer = require('../src/isBuffer').default; // Ladataan uudelleen
     expect(isBuffer(new Uint8Array(2))).toBe(false); // Uint8Array ei ole Buffer, joten tulos on false
+  });
+
+  // Testi: nativeIsBuffer fallback
+  it('should correctly use nativeIsBuffer if available', () => {
+    const originalNativeIsBuffer = Buffer.isBuffer;
+    Buffer.isBuffer = jest.fn(() => true); // Mockaa isBuffer
+
+    const buffer = Buffer.from([1, 2, 3, 4]);
+    expect(isBuffer(buffer)).toBe(true);
+
+    Buffer.isBuffer = originalNativeIsBuffer; // Palauta alkuperäinen isBuffer
+  });
+
+  // Testi: nativeIsBuffer fallback palauttaa false
+  it('should return false when nativeIsBuffer returns false', () => {
+    const originalNativeIsBuffer = Buffer.isBuffer;
+    Buffer.isBuffer = jest.fn(() => false); // Mockaa isBuffer palauttamaan false
+
+    const uint8Array = new Uint8Array([1, 2, 3, 4]);
+    expect(isBuffer(uint8Array)).toBe(false);
+
+    Buffer.isBuffer = originalNativeIsBuffer; // Palauta alkuperäinen isBuffer
   });
 
   it('should handle case where Buffer is undefined', () => {
@@ -80,5 +115,48 @@ describe('isBuffer function', () => {
     expect(isBuffer(new Uint8Array(2))).toBe(false); // Uint8Array ei ole Buffer
   
     global.Buffer = originalBuffer; // Palauta alkuperäinen Buffer
+  });
+});
+
+describe('isBuffer function extended cases', () => {
+  // Tapaus: moduleExports on määritelty, mutta root.Buffer puuttuu
+  it('should handle the case when moduleExports is defined but root.Buffer is undefined', () => {
+    const originalRootBuffer = root.Buffer;
+    root.Buffer = undefined; // Poistetaan Buffer käytöstä rootista
+
+    const result = isBuffer(new Uint8Array([1, 2, 3, 4]));
+    expect(result).toBe(false);
+
+    root.Buffer = originalRootBuffer; // Palautetaan alkuperäinen root.Buffer
+  });
+
+  // Tapaus: moduleExports ja root.Buffer eivät ole käytettävissä
+  it('should return false if both moduleExports and root.Buffer are undefined', () => {
+    const originalModuleExports = global.exports;
+    const originalRootBuffer = root.Buffer;
+
+    global.exports = undefined;
+    root.Buffer = undefined;
+
+    const result = isBuffer(new Uint8Array([1, 2, 3, 4]));
+    expect(result).toBe(false);
+
+    global.exports = originalModuleExports;
+    root.Buffer = originalRootBuffer;
+  });
+
+  // Tapaus: nativeIsBuffer fallback toimii oikein
+  it('should call nativeIsBuffer when available and return the result', () => {
+    const buffer = Buffer.from([1, 2, 3, 4]);
+
+    const mockNativeIsBuffer = jest.fn().mockReturnValue(true);
+    const originalBuffer = global.Buffer;
+
+    global.Buffer = { isBuffer: mockNativeIsBuffer };
+
+    expect(isBuffer(buffer)).toBe(true);
+    expect(mockNativeIsBuffer).toHaveBeenCalledWith(buffer);
+
+    global.Buffer = originalBuffer; // Palautetaan alkuperäinen Buffer
   });
 });
