@@ -1,4 +1,4 @@
-import isBuffer from 's./src/isBuffer';  
+import isBuffer from '../src/isBuffer';  
 
 describe('isBuffer function', () => {
 

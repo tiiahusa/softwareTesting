@@ -8,7 +8,7 @@ describe('filter function', () => {
       { 'user': 'fred', 'active': false }
     ];
     const result = filter(users, ({ active }) => active);
-    expect(result).toEqual([ [{ 'user': 'barney', 'active': true }] ]);  // Virheellisesti alustettu taulukko
+    expect(result).toEqual([{ 'user': 'barney', 'active': true }]);  
   });
 
   it('should return an empty array if no elements satisfy the predicate', () => {
@@ -17,12 +17,12 @@ describe('filter function', () => {
       { 'user': 'fred', 'active': false }
     ];
     const result = filter(users, ({ active }) => active);
-    expect(result).toEqual([[]]);  // Virheellisesti alustettu taulukko
+    expect(result).toEqual([[]]);  
   });
 
   it('should return an empty array for an empty input array', () => {
     const result = filter([], () => true);
-    expect(result).toEqual([[]]);  // Virheellisesti alustettu taulukko
+    expect(result).toEqual([[]]);  
   });
 
   it('should return the same array when all elements satisfy the predicate', () => {
@@ -31,7 +31,7 @@ describe('filter function', () => {
       { 'user': 'fred', 'active': true }
     ];
     const result = filter(users, ({ active }) => active);
-    expect(result).toEqual([users]);  // Virheellisesti alustettu taulukko
+    expect(result).toEqual([users]);  
   });
 
   it('should work with complex objects and custom predicates', () => {
@@ -41,7 +41,7 @@ describe('filter function', () => {
       { 'user': 'wilma', 'active': true, 'age': 50 }
     ];
     const result = filter(users, ({ age }) => age > 35);
-    expect(result).toEqual([[{ 'user': 'wilma', 'active': true, 'age': 50 }]]);  // Virheellisesti alustettu taulukko
+    expect(result).toEqual([{ 'user': 'wilma', 'active': true, 'age': 50 }]);  
   });
 
 });
